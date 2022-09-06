@@ -10,14 +10,26 @@ import (
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	fmt.Printf("Domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord\n")
+	// get command line arguments from command line
+	args := os.Args[1:]
 
-	for scanner.Scan() {
-		checkDomain(scanner.Text())
-	}
-	if err := scanner.Err(); err != nil {
-		log.Fatal("Erorr: could not read from input: %v\n", err)
+	// check if there is at least one argument
+	if len(args) < 1 {
+		fmt.Printf("Domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord\n")
+		fmt.Println("Please provide an email address")
+		scanner := bufio.NewScanner(os.Stdin)
+
+		for scanner.Scan() {
+			checkDomain(scanner.Text())
+		}
+		if err := scanner.Err(); err != nil {
+			log.Fatal("Erorr: could not read from input: %v\n", err)
+		}
+	} else {
+		fmt.Printf("Domain, hasMX, hasSPF, spfRecord, hasDMARC, dmarcRecord\n")
+		for _, arg := range args {
+			checkDomain(arg)
+		}
 	}
 }
 
