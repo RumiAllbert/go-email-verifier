@@ -17,3 +17,7 @@ go build
 ```bash
 go run main.go -email <email>
 ```
+or enter your email address when prompted:
+```bash
+go run main.go
+```
